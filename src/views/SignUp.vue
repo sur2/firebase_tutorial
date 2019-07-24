@@ -14,7 +14,7 @@
     </v-flex>
 
     <v-flex mb-4>
-      <h1 class="display-2 font-weight-bold mb-3">LogIn</h1>
+      <h1 class="display-2 font-weight-bold mb-3">Sign Up</h1>
 
       <v-text-field v-model='email'>
         <template v-slot:label>Email</template>
@@ -27,8 +27,8 @@
       <template v-slot:label>Password</template>
     </v-text-field>
 
-    <v-btn class='mb-4' v-on:click='login'>Connection</v-btn>
-    <p class="subheading font-weight-regular">You don't hava an account? You can <router-link to='/sign_up'>create one.</router-link></p>
+    <v-btn class='mb-4' v-on:click='signUp'>Create Account</v-btn>
+    <p class="subheading font-weight-regular">Thank you.</p>
   </v-flex>
 </v-layout>
 </v-container>
@@ -37,7 +37,7 @@
 <script>
 import firebase from 'firebase'
 
-export default {
+export default{
   data: function() {
     return {
       input_ps:false,
@@ -46,19 +46,20 @@ export default {
     }
   },
   methods:{
-    login:function(){
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    signUp:function() {
+      firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then((user) => {
-        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        this.$router.replace('hello')
+        alert('Your account has been created !')
+        this.$router.replace('/hello')
       },
       (err) => {
-        alert('Oops. '+err.message)
+        alert('Oops. '+error.message)
       }
     );
   }
 }
 }
+
 </script>
 
 <style>
@@ -66,5 +67,4 @@ export default {
   margin: auto;
   width:50%;
 }
-
 </style>
