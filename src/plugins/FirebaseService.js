@@ -29,6 +29,17 @@ firebase.initializeApp(config)
 const firestore = firebase.firestore()
 
 export default {
+	// schedule test
+	postSchedule(userEmail, title, details, date){
+		return firestore.collection('schedule').add({
+			userEmail,
+			title,
+			details,
+			created_at:firebase.firestore.FieldValue.serverTimestamp()
+		})
+	},
+
+	//
 	getPosts() {
 		const postsCollection = firestore.collection(POSTS)
 		return postsCollection

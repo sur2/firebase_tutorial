@@ -21,13 +21,18 @@
       <v-btn v-on:click='toWrite'>Write</v-btn>
     </v-flex>
   </v-layout>
+  <temp/>
 </v-container>
 </template>
 
 <script>
 import firebase from 'firebase'
+import temp from '../components/MyCalender'
 
 export default {
+  components:{
+    temp
+  },
   data(){
     return {
       userEmail:''
@@ -41,6 +46,7 @@ export default {
         this.userEmail = user.email
       } else {
         // No user is signed in.
+        this.userEmail = 'Guest'
       }
     });
   },
